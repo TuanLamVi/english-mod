@@ -1,35 +1,43 @@
-import type React from "react";
-import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
-import { AppWrapper } from "@/components/app-wrapper";
-import "./globals.css";
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
+import Navbar from "@/components/navbar"
+
+const inter = Inter({ subsets: ["latin", "vietnamese"] })
 
 export const metadata: Metadata = {
-  title: "Made with App Studio",
-  description: "Pi Network app",
-    generator: 'v0.app'
-};
+  title: "English Mod - Học Tiếng Anh Online",
+  description: "Ứng dụng học tiếng Anh tương tác với hệ thống gamification, achievement, và leaderboard",
+  keywords: ["English", "Learning", "Education", "Game", "Quiz"],
+  authors: [{ name: "TuanLamVi" }],
+  openGraph: {
+    type: "website",
+    locale: "vi_VN",
+    url: "https://english-mod.vercel.app",
+    title: "English Mod - Học Tiếng Anh Online",
+    description: "Ứng dụng học tiếng Anh tương tác",
+    images: [
+      {
+        url: "https://via.placeholder.com/1200x630?text=English+Mod",
+        width: 1200,
+        height: 630,
+        alt: "English Mod"
+      }
+    ]
+  }
+}
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en">
-      <head>
-        <style>{`
-html {
-  font-family: ${GeistSans.style.fontFamily};
-  --font-sans: ${GeistSans.variable};
-  --font-mono: ${GeistMono.variable};
-}
-        `}</style>
-      </head>
-      <body>
-        <AppWrapper>{children}</AppWrapper>
+    <html lang="vi">
+      <body className={inter.className}>
+        <Navbar />
+        {children}
       </body>
     </html>
-  );
+  )
 }
