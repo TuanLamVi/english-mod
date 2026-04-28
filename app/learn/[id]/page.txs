@@ -1,0 +1,43 @@
+"use client"
+
+import { useParams } from "next/navigation"
+import { lessons } from "@/lib/lesson-data"
+import Quiz from "@/components/Quiz"
+
+export default function LessonPage() {
+  const params = useParams()
+  const id = Number(params.id)
+
+  const lesson = lessons.find((l) => l.id === id)
+
+  if (!lesson) {
+    return <div className="p-6">❌ Không tìm thấy bài học</div>
+  }
+
+  const premium = localStorage.getItem("premium") === "true"
+
+  if (!premium && id > 4) {
+    return (
+      <div className="p-6">
+        <h2 className="text-xl mb-3">🔒 Bài này cần Premium</h2>
+
+        <button
+          onClick={async () => {
+            alert("Giả lập thanh toán Pi")
+            localStorage.setItem("premium", "true")
+            location.reload()
+          }}
+          className="bg-yellow-500 text-white px-4 py-2 rounded"
+        >
+          💎 Mở khóa
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <main className="p-6">
+      <Quiz lesson={lesson} />
+    </main>
+  )
+}
